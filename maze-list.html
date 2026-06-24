@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dataset Labirin — Visualisasi Labirin DFS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/maze-list.css">
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <header class="page-header">
+    <a href="difficulty.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+      </svg>
+      Ubah Tingkat Kesulitan
+    </a>
+  </header>
+
+  <main class="list-page">
+    <div class="list-header stagger">
+      <div class="header-badges">
+        <span class="badge" id="level-badge">Memuat...</span>
+        <span class="badge badge-blue">10 Dataset</span>
+      </div>
+      <h1 class="gradient-text" id="page-title">Koleksi Dataset</h1>
+      <p>Pilih konfigurasi labirin untuk memulai eksekusi DFS. Semua labirin dibuat secara deterministik untuk
+        memastikan hasil penelitian yang konsisten.</p>
+    </div>
+
+    <div id="empty-state" class="empty-state hide">
+      <div class="empty-state-icon">📂</div>
+      <h3>Dataset tidak ditemukan</h3>
+      <p>Harap pilih tingkat kesulitan yang valid.</p>
+      <a href="difficulty.html" class="btn btn-ghost" style="margin-top:16px;">Kembali</a>
+    </div>
+
+    <div class="maze-grid stagger" id="maze-container">
+    </div>
+  </main>
+
+  <script src="data/mazes.js?v=2"></script>
+  <script src="js/db.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/maze-list.js"></script>
+
+</body>
+
+</html>

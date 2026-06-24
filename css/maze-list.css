@@ -1,0 +1,141 @@
+/**
+ * css/maze-list.css
+ */
+
+.list-page {
+  max-width:     1400px;
+  margin:        0 auto;
+  padding:       40px 40px 100px;
+}
+
+.list-header {
+  text-align:    center;
+  margin-bottom: 64px;
+  max-width:     600px;
+  margin-inline: auto;
+}
+
+.header-badges {
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  gap:           12px;
+  margin-bottom: 24px;
+}
+
+.list-header h1 {
+  font-size:   42px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.list-header p {
+  font-size:   16px;
+  color:       var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------ */
+/* Grid */
+/* ------------------------------------------------ */
+
+.maze-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap:                   24px;
+}
+
+/* ------------------------------------------------ */
+/* Maze Card */
+/* ------------------------------------------------ */
+
+.maze-card {
+  display:        flex;
+  flex-direction: column;
+  padding:        20px;
+  border-radius:  var(--r-xl);
+  text-decoration:none;
+  position:       relative;
+}
+
+/* Preview Canvas Container */
+.mc-preview {
+  background:    var(--bg-tertiary);
+  border-radius: var(--r-md);
+  padding:       16px;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border:        1px solid var(--border);
+  position:      relative;
+  transition:    border-color var(--t-fast);
+}
+
+.maze-card:hover .mc-preview {
+  border-color: rgba(59,130,246,0.3);
+}
+
+/* Status Badge inside preview */
+.mc-status {
+  position:      absolute;
+  top:           12px;
+  right:         12px;
+  font-size:     10px;
+  font-weight:   700;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  padding:       4px 8px;
+  border-radius: var(--r-sm);
+  background:    rgba(0,0,0,0.6);
+  color:         var(--text-muted);
+  backdrop-filter: blur(4px);
+  border:        1px solid var(--border);
+}
+.mc-status.solved {
+  background:    rgba(34,197,94,0.15);
+  color:         #86efac;
+  border-color:  rgba(34,197,94,0.3);
+}
+
+.mc-preview canvas {
+  border-radius: 4px;
+  box-shadow:    0 4px 12px rgba(0,0,0,0.5);
+  image-rendering: pixelated;
+}
+
+/* Card Content */
+.mc-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mc-title {
+  font-size:   18px;
+  font-weight: 700;
+  color:       var(--text-primary);
+}
+
+.mc-meta {
+  display:     flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size:   13px;
+  color:       var(--text-secondary);
+}
+
+.mc-meta-nodes {
+  font-family: var(--font-mono);
+}
+
+.mc-btn {
+  margin-top:  16px;
+  width:       100%;
+}
+
+@media (max-width: 768px) {
+  .list-page { padding: 40px 20px; }
+  .list-header h1 { font-size: 32px; }
+}

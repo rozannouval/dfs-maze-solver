@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilih Tingkat Kesulitan — Visualisasi Labirin DFS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/difficulty.css">
+</head>
+
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+
+  <header class="page-header">
+    <a href="index.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+      </svg>
+      Kembali ke Beranda
+    </a>
+  </header>
+
+  <main class="difficulty-page">
+    <div class="difficulty-header stagger">
+      <h1 class="gradient-text">Pilih Kompleksitas Labirin</h1>
+      <p>Pilih kategori dataset untuk mengevaluasi performa algoritma DFS pada berbagai tingkat kompleksitas ruang.</p>
+    </div>
+
+    <div class="difficulty-grid stagger">
+
+      <a href="maze-list.html?level=easy" class="diff-card glass-card card-easy">
+        <div class="diff-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <line x1="3" y1="9" x2="21" y2="9" />
+            <line x1="3" y1="15" x2="21" y2="15" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+            <line x1="15" y1="3" x2="15" y2="21" />
+          </svg>
+        </div>
+        <span class="badge badge-easy diff-badge">Mudah</span>
+        <h2>Grid 5 × 5</h2>
+        <p>Dataset tingkat pemula. Ideal untuk memahami mekanisme dasar dari penelusuran DFS dan backtracking.</p>
+        <div class="diff-meta">
+          <span>10 Dataset</span>
+          <span>Maksimal 25 Node</span>
+        </div>
+      </a>
+
+      <a href="maze-list.html?level=medium" class="diff-card glass-card card-medium">
+        <div class="diff-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="2" ry="2" />
+            <line x1="2" y1="7" x2="22" y2="7" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <line x1="2" y1="17" x2="22" y2="17" />
+            <line x1="7" y1="2" x2="7" y2="22" />
+            <line x1="12" y1="2" x2="12" y2="22" />
+            <line x1="17" y1="2" x2="17" y2="22" />
+          </svg>
+        </div>
+        <span class="badge badge-medium diff-badge">Sedang</span>
+        <h2>Grid 10 × 10</h2>
+        <p>Kompleksitas menengah. Menunjukkan percabangan yang signifikan dan akumulasi kedalaman stack tingkat sedang.
+        </p>
+        <div class="diff-meta">
+          <span>10 Dataset</span>
+          <span>Maksimal 100 Node</span>
+        </div>
+      </a>
+
+      <a href="maze-list.html?level=hard" class="diff-card glass-card card-hard">
+        <div class="diff-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="2" ry="2" />
+            <path d="M2 6h20M2 10h20M2 14h20M2 18h20M6 2v20M10 2v20M14 2v20M18 2v20" />
+          </svg>
+        </div>
+        <span class="badge badge-hard diff-badge">Sulit</span>
+        <h2>Grid 25 × 25</h2>
+        <p>Kompleksitas tinggi. Menguji algoritma dalam menangani jalur rekursif yang dalam dan proses backtracking pada
+          jalan buntu yang ekstensif.</p>
+        <div class="diff-meta">
+          <span>10 Dataset</span>
+          <span>Maksimal 625 Node</span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+/**
+ * css/difficulty.css
+ */
+
+.difficulty-page {
+  max-width:     1200px;
+  margin:        0 auto;
+  padding:       60px 40px 100px;
+  display:       flex;
+  flex-direction: column;
+  align-items:   center;
+  min-height:    calc(100vh - 80px);
+}
+
+.difficulty-header {
+  text-align:    center;
+  margin-bottom: 64px;
+  max-width:     600px;
+}
+
+.difficulty-header h1 {
+  font-size:   48px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.difficulty-header p {
+  font-size:   18px;
+  color:       var(--text-secondary);
+  line-height: 1.6;
+}
+
+.difficulty-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap:                   32px;
+  width:                 100%;
+}
+
+.diff-card {
+  display:        flex;
+  flex-direction: column;
+  padding:        40px;
+  border-radius:  var(--r-2xl);
+  text-align:     center;
+  position:       relative;
+  overflow:       hidden;
+  transition:     all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration:none;
+}
+
+/* Hover glow effects based on difficulty */
+.card-easy:hover   { box-shadow: 0 12px 40px rgba(34,197,94,0.15);  border-color: rgba(34,197,94,0.3);  transform: translateY(-6px); }
+.card-medium:hover { box-shadow: 0 12px 40px rgba(234,179,8,0.15);  border-color: rgba(234,179,8,0.3);  transform: translateY(-6px); }
+.card-hard:hover   { box-shadow: 0 12px 40px rgba(239,68,68,0.15);  border-color: rgba(239,68,68,0.3);  transform: translateY(-6px); }
+
+.diff-icon {
+  width:         72px;
+  height:        72px;
+  border-radius: var(--r-xl);
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  margin:        0 auto 24px;
+}
+
+.card-easy .diff-icon   { background: rgba(34,197,94,0.1); color: #86efac; }
+.card-medium .diff-icon { background: rgba(234,179,8,0.1);  color: #fde047; }
+.card-hard .diff-icon   { background: rgba(239,68,68,0.1);  color: #fca5a5; }
+
+.diff-badge {
+  position:  absolute;
+  top:       24px;
+  right:     24px;
+}
+
+.diff-card h2 {
+  font-size:   28px;
+  font-weight: 800;
+  color:       var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.diff-card p {
+  color:       var(--text-secondary);
+  font-size:   15px;
+  line-height: 1.7;
+  flex:        1;
+}
+
+.diff-meta {
+  margin-top:  32px;
+  display:     flex;
+  align-items: center;
+  justify-content: center;
+  gap:         16px;
+  font-size:   13px;
+  font-weight: 600;
+  color:       var(--text-muted);
+}
+
+.diff-meta span {
+  background:  rgba(255,255,255,0.05);
+  padding:     6px 12px;
+  border-radius: var(--r-full);
+}
+
+@media (max-width: 768px) {
+  .difficulty-header h1 { font-size: 36px; }
+  .difficulty-page { padding: 40px 20px; }
+  .diff-card { padding: 32px 24px; }
+}

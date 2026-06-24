@@ -1,0 +1,296 @@
+/**
+ * css/solver.css
+ * Solver Page Styles
+ */
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+
+.solver-title {
+  display:       flex;
+  align-items:   center;
+  gap:           16px;
+  margin-left:   auto; /* push to right */
+}
+
+.solver-title h1 {
+  font-size:     24px;
+  font-weight:   800;
+  color:         var(--text-primary);
+}
+
+.solver-layout {
+  max-width:     1400px;
+  margin:        0 auto;
+  padding:       40px;
+  display:       grid;
+  grid-template-columns: 1fr 380px;
+  gap:           32px;
+  align-items:   start;
+}
+
+/* ============================================================
+   LEFT COLUMN (Maze)
+============================================================ */
+
+.layout-left {
+  display:        flex;
+  flex-direction: column;
+  gap:            24px;
+}
+
+.maze-wrapper {
+  padding:        32px;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  justify-content: center;
+  min-height:     600px;
+}
+
+.maze-container {
+  display:    grid;
+  gap:        1px; /* Gap creates borders between cells */
+  background: var(--border); /* Acts as border color */
+  border:     1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow:   hidden;
+  box-shadow: var(--shadow-lg);
+  padding:    1px;
+}
+
+/* ---- CELL STATES ---- */
+
+.maze-cell {
+  transition: background var(--t-fast);
+}
+
+.maze-cell.wall      { background: var(--cell-wall); }
+.maze-cell.path      { background: var(--cell-path); }
+.maze-cell.start     { background: var(--cell-start); }
+.maze-cell.finish    { background: var(--cell-finish); }
+.maze-cell.visited   { background: var(--cell-visited); }
+.maze-cell.backtrack { background: var(--cell-backtrack); }
+.maze-cell.solution  { background: var(--cell-solution); box-shadow: 0 0 10px rgba(134,239,172,0.5) inset;}
+.maze-cell.player    { background: var(--cell-player); border-radius: 2px; transform: scale(0.85); }
+
+/* Animation effect for visited/backtrack */
+.maze-cell.visited {
+  animation: cellPulse 0.4s ease-out;
+}
+
+@keyframes cellPulse {
+  0%   { transform: scale(0.6); opacity: 0.5; }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.manual-hint {
+  margin-top:  24px;
+  font-size:   13px;
+  color:       var(--text-muted);
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+}
+
+/* ---- RESULT BANNER ---- */
+
+.result-banner {
+  display:     flex;
+  align-items: center;
+  gap:         20px;
+  padding:     24px 32px;
+  border-color: rgba(34,197,94,0.3);
+  background:  rgba(34,197,94,0.05);
+}
+.result-banner.hide { display: none; }
+
+.rb-icon {
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--r-full);
+  background:      rgba(34,197,94,0.15);
+  color:           #86efac;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       24px;
+  flex-shrink:     0;
+}
+
+.rb-text { flex: 1; }
+.rb-text h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #86efac; }
+.rb-text p { font-size: 14px; color: var(--text-secondary); }
+
+/* ============================================================
+   RIGHT COLUMN (Sidebar)
+============================================================ */
+
+.layout-right {
+  display:        flex;
+  flex-direction: column;
+  gap:            24px;
+}
+
+.panel-section {
+  padding: 24px;
+}
+
+.w-full { width: 100%; }
+
+/* ---- CONTROLS ---- */
+
+.speed-control {
+  margin-bottom: 24px;
+}
+.speed-control label {
+  display:       block;
+  font-size:     13px;
+  font-weight:   600;
+  color:         var(--text-secondary);
+  margin-bottom: 12px;
+}
+.speed-control input[type=range] {
+  width:  100%;
+  cursor: pointer;
+  accent-color: var(--blue-lt);
+}
+.speed-labels {
+  display:         flex;
+  justify-content: space-between;
+  font-size:       11px;
+  color:           var(--text-muted);
+  margin-top:      6px;
+  text-transform:  uppercase;
+  font-weight:     600;
+}
+
+.control-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- STATS ---- */
+
+.stats-list {
+  display: flex;
+  flex-direction: column;
+}
+.info-tooltip {
+  display:       inline-flex;
+  align-items:   center;
+  justify-content:center;
+  width:         16px;
+  height:        16px;
+  border-radius: 50%;
+  background:    var(--border);
+  font-size:     10px;
+  cursor:        help;
+}
+
+/* ---- LIFO STACK ---- */
+
+.stack-panel-wrapper {
+  display:        flex;
+  flex-direction: column;
+  max-height:     350px;
+}
+
+.stack-badge {
+  background:    rgba(59,130,246,0.15);
+  color:         var(--blue-lt);
+  padding:       2px 8px;
+  border-radius: var(--r-full);
+  font-family:   var(--font-mono);
+  font-size:     12px;
+}
+
+.stack-container {
+  flex:       1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0,0,0,0.3);
+  border:     1px solid var(--border);
+  border-radius: var(--r-md);
+  padding:    12px;
+  font-family: var(--font-mono);
+  font-size:  12px;
+  color:      var(--text-secondary);
+  display:    flex;
+  flex-direction: column;
+  gap:        4px;
+}
+
+.stack-item {
+  display:     flex;
+  align-items: center;
+  gap:         12px;
+  padding:     6px 12px;
+  background:  rgba(255,255,255,0.03);
+  border-radius: var(--r-sm);
+  transition:  background var(--t-fast);
+}
+
+.stack-item.stack-top {
+  background:   rgba(59,130,246,0.15);
+  color:        var(--text-primary);
+  border-left:  2px solid var(--blue-lt);
+}
+
+.stack-label { width: 45px; opacity: 0.6; }
+.stack-top .stack-label { opacity: 1; color: var(--blue-lt); font-weight: 700; }
+
+.stack-empty {
+  text-align: center;
+  padding:    20px;
+  opacity:    0.5;
+  font-style: italic;
+}
+
+.stack-more {
+  text-align: center;
+  padding:    8px;
+  opacity:    0.6;
+  font-size:  11px;
+}
+
+/* ---- LEGEND ---- */
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.l-item {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+  font-size:   13px;
+  color:       var(--text-secondary);
+}
+.l-box {
+  width:         12px;
+  height:        12px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 1024px) {
+  .solver-layout {
+    grid-template-columns: 1fr;
+  }
+  .layout-left, .layout-right { gap: 20px; }
+  .maze-wrapper { min-height: auto; padding: 20px; }
+  .stack-panel-wrapper { max-height: 250px; }
+}
+
+@media (max-width: 768px) {
+  .solver-layout { padding: 20px; }
+  .solver-title h1 { font-size: 20px; }
+}

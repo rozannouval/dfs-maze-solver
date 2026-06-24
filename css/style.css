@@ -1,0 +1,461 @@
+/**
+ * css/style.css
+ * Global Design System — DFS Maze Visualization
+ *
+ * Defines CSS custom properties (design tokens) and shared utility classes
+ * used across all pages. Individual pages import additional per-page styles.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ============================================================
+   DESIGN TOKENS
+============================================================ */
+
+:root {
+  /* Backgrounds */
+  --bg-primary:    #070d1a;
+  --bg-secondary:  #0d1629;
+  --bg-tertiary:   #111827;
+  --bg-card:       rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+
+  /* Borders */
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(59, 130, 246, 0.35);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Text */
+  --text-primary:  #f1f5f9;
+  --text-secondary:#94a3b8;
+  --text-muted:    #475569;
+
+  /* Accent Colors */
+  --blue:    #3b82f6;
+  --blue-lt: #60a5fa;
+  --blue-dk: #1d4ed8;
+  --green:   #22c55e;
+  --red:     #ef4444;
+  --orange:  #f97316;
+  --purple:  #8b5cf6;
+  --cyan:    #06b6d4;
+  --yellow:  #eab308;
+
+  /* Maze Cell Colors */
+  --cell-wall:      #0e1621;
+  --cell-path:      #1a2540;
+  --cell-start:     #22c55e;
+  --cell-finish:    #ef4444;
+  --cell-visited:   #2563eb;
+  --cell-backtrack: #ea580c;
+  --cell-solution:  #86efac;
+  --cell-player:    #8b5cf6;
+
+  /* Typography */
+  --font:      'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Border Radius */
+  --r-xs:  4px;
+  --r-sm:  8px;
+  --r-md:  14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --r-2xl: 36px;
+  --r-full: 9999px;
+
+  /* Transitions */
+  --t-fast: 0.15s ease;
+  --t-base: 0.25s ease;
+  --t-slow: 0.4s  ease;
+
+  /* Shadows */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.4);
+  --shadow-md:  0 8px 24px rgba(0,0,0,0.5);
+  --shadow-lg:  0 20px 48px rgba(0,0,0,0.6);
+  --shadow-glow-blue:   0 0 24px rgba(59,130,246,0.3);
+  --shadow-glow-green:  0 0 24px rgba(34,197,94,0.3);
+}
+
+/* ============================================================
+   RESET & BASE
+============================================================ */
+
+*, *::before, *::after {
+  margin:      0;
+  padding:     0;
+  box-sizing:  border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:      var(--font);
+  background-color: var(--bg-primary);
+  color:            var(--text-primary);
+  min-height:       100vh;
+  overflow-x:       hidden;
+  line-height:      1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font);
+  cursor:      pointer;
+  border:      none;
+  outline:     none;
+}
+
+img, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   ANIMATED BACKGROUND GRID
+============================================================ */
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 30%, transparent 100%);
+}
+
+/* Gradient overlay for depth */
+.bg-gradient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%,
+    rgba(59,130,246,0.08) 0%,
+    transparent 70%
+  );
+}
+
+/* ============================================================
+   SHARED HEADER / NAV
+============================================================ */
+
+.page-header {
+  display:        flex;
+  align-items:    center;
+  gap:            16px;
+  padding:        28px 40px 0;
+  max-width:      1400px;
+  margin:         0 auto;
+}
+
+.back-btn {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            6px;
+  color:          var(--blue-lt);
+  font-size:      14px;
+  font-weight:    500;
+  padding:        8px 16px;
+  border-radius:  var(--r-full);
+  border:         1px solid var(--border-accent);
+  background:     rgba(59,130,246,0.08);
+  transition:     background var(--t-fast), transform var(--t-fast);
+}
+.back-btn:hover {
+  background:  rgba(59,130,246,0.18);
+  transform:   translateX(-2px);
+}
+
+/* ============================================================
+   BADGE
+============================================================ */
+
+.badge {
+  display:        inline-flex;
+  align-items:    center;
+  gap:            8px;
+  padding:        6px 16px;
+  border-radius:  var(--r-full);
+  font-size:      12px;
+  font-weight:    600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge-blue {
+  background: rgba(59,130,246,0.15);
+  color:      var(--blue-lt);
+  border:     1px solid rgba(59,130,246,0.25);
+}
+
+.badge-green {
+  background: rgba(34,197,94,0.15);
+  color:      #86efac;
+  border:     1px solid rgba(34,197,94,0.25);
+}
+
+.badge-easy   { background: rgba(34,197,94,0.12);  color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+.badge-medium { background: rgba(234,179,8,0.12);   color: #fde047; border: 1px solid rgba(234,179,8,0.25); }
+.badge-hard   { background: rgba(239,68,68,0.12);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+
+/* ============================================================
+   GLASS CARD
+============================================================ */
+
+.glass-card {
+  background:     var(--bg-card);
+  border:         1px solid var(--border);
+  border-radius:  var(--r-xl);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition:     background var(--t-base), border-color var(--t-base), transform var(--t-base), box-shadow var(--t-base);
+}
+
+.glass-card:hover {
+  background:    var(--bg-card-hover);
+  border-color:  var(--border-strong);
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+
+.btn {
+  display:        inline-flex;
+  align-items:    center;
+  justify-content:center;
+  gap:            8px;
+  padding:        12px 28px;
+  border-radius:  var(--r-md);
+  font-size:      15px;
+  font-weight:    600;
+  transition:     all var(--t-base);
+  white-space:    nowrap;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color:      white;
+  box-shadow: 0 4px 16px rgba(59,130,246,0.35);
+}
+.btn-primary:hover {
+  background:  var(--blue-lt);
+  transform:   translateY(-2px);
+  box-shadow:  0 8px 24px rgba(59,130,246,0.45);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-ghost {
+  background: transparent;
+  color:      var(--text-secondary);
+  border:     1px solid var(--border);
+}
+.btn-ghost:hover {
+  background:   var(--bg-card-hover);
+  color:        var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.btn-danger {
+  background: rgba(239,68,68,0.15);
+  color:      #fca5a5;
+  border:     1px solid rgba(239,68,68,0.3);
+}
+.btn-danger:hover {
+  background: rgba(239,68,68,0.25);
+  color:      white;
+}
+
+.btn-success {
+  background: rgba(34,197,94,0.15);
+  color:      #86efac;
+  border:     1px solid rgba(34,197,94,0.3);
+}
+.btn-success:hover {
+  background: rgba(34,197,94,0.25);
+  color:      white;
+}
+
+/* ============================================================
+   SECTION TITLE
+============================================================ */
+
+.section-title {
+  font-size:   11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ============================================================
+   STAT ITEM (shared between solver & result)
+============================================================ */
+
+.stat-item {
+  display:      flex;
+  align-items:  center;
+  justify-content: space-between;
+  padding:      10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size:    14px;
+}
+.stat-item:last-child { border-bottom: none; }
+
+.stat-label {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-value {
+  font-family:  var(--font-mono);
+  font-weight:  600;
+  color:        var(--text-primary);
+  font-size:    15px;
+}
+
+.stat-value.highlight { color: var(--blue-lt); }
+
+/* ============================================================
+   SCROLLBAR
+============================================================ */
+
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* ============================================================
+   ANIMATIONS
+============================================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px  rgba(59,130,246,0.3); }
+  50%       { box-shadow: 0 0 20px rgba(59,130,246,0.6); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.animate-fade-in  { animation: fadeIn  0.5s ease forwards; }
+.animate-slide-up { animation: slideUp 0.5s ease forwards; }
+
+/* Staggered children */
+.stagger > * { opacity: 0; animation: slideUp 0.5s ease forwards; }
+.stagger > *:nth-child(1) { animation-delay: 0.0s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.2s; }
+.stagger > *:nth-child(4) { animation-delay: 0.3s; }
+.stagger > *:nth-child(5) { animation-delay: 0.4s; }
+.stagger > *:nth-child(6) { animation-delay: 0.5s; }
+
+/* ============================================================
+   GRADIENT TEXT UTILITY
+============================================================ */
+
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   DIVIDER
+============================================================ */
+
+.divider {
+  height:     1px;
+  background: var(--border);
+  margin:     24px 0;
+}
+
+/* ============================================================
+   EMPTY STATE
+============================================================ */
+
+.empty-state {
+  text-align:  center;
+  padding:     60px 24px;
+  color:       var(--text-muted);
+}
+.empty-state-icon {
+  font-size:   48px;
+  margin-bottom: 16px;
+}
+
+/* ============================================================
+   TOAST NOTIFICATION
+============================================================ */
+
+.toast {
+  position:   fixed;
+  bottom:     28px;
+  left:       50%;
+  transform:  translateX(-50%) translateY(80px);
+  background: rgba(30,41,59,0.95);
+  border:     1px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  padding:    14px 24px;
+  font-size:  14px;
+  font-weight: 500;
+  backdrop-filter: blur(20px);
+  z-index:    1000;
+  transition: transform var(--t-base);
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ============================================================
+   RESPONSIVE UTILITIES & HELPERS
+============================================================ */
+
+.hide { display: none !important; }
+
+@media (max-width: 768px) {
+  .page-header { padding: 20px 20px 0; }
+  .hide-mobile { display: none !important; }
+}
