@@ -116,7 +116,7 @@ const SEEDS = {
   hard:   [20011, 21001, 22003, 23003, 24007, 25013, 26003, 27011, 28001, 29017],
 };
 
-const SIZE_MAP = { easy: 5, medium: 10, hard: 25 };
+const SIZE_MAP = { easy: 10, medium: 15, hard: 20 };
 const ID_PREFIX = { easy: 'E', medium: 'M', hard: 'H' };
 
 // ---------------------------------------------------------------------------
@@ -185,9 +185,9 @@ const output = `/**
  *   1 = Wall (blocked cell)
  *
  * Maze Sizes:
- *   Easy   — 5×5   grid  (10 mazes)
- *   Medium — 10×10 grid  (10 mazes)
- *   Hard   — 25×25 grid  (10 mazes)
+ *   Easy   — 10×10 grid  (10 mazes)
+ *   Medium — 15×15 grid  (10 mazes)
+ *   Hard   — 20×20 grid  (10 mazes)
  *
  * All mazes are deterministic — same seed always produces same maze.
  * DO NOT MODIFY this file. Regenerate using: node scripts/generate-mazes.js
